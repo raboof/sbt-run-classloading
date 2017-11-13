@@ -1,7 +1,11 @@
-import akka.actor.{Actor, ActorSystem, Props}
-import com.typesafe.config.ConfigFactory
-
 object Main extends App {
-  val config = ConfigFactory.load()
-  ActorSystem("backend", config)
+  // Works:
+  Class.forName("scala.Int")
+
+  // Does not work:
+  val classLoader = Option(Thread.currentThread.getContextClassLoader).get
+  Class.forName("scala.Int", true, classLoader)
+  
+  // And neither:
+  Class.forName("scala.Int", false, classLoader)
 }
